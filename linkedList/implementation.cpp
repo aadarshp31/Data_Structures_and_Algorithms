@@ -11,11 +11,14 @@ public:
 // Used double pointer here for the 'head_ref' as the 'next' param in class 'Node' is a pointer type.
 // So if we want to get the address of the head in the last Node then we will use a pointer to the 'next' pointer
 // We can then dereference the double pointer to eventually get the address of the last Node object
+
+// Adds a new item at the start of the Linked List
 void push(Node **head_ref, int new_value)
 {
   Node *new_node = new Node();
   new_node->data = new_value;
   new_node->next = *head_ref;
+  *head_ref = new_node;
 }
 
 // Inserts a new item at a specific location in the Linked List
