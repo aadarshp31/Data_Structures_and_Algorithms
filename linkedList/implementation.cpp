@@ -68,3 +68,21 @@ void printList(Node *node)
   }
   cout << "\n";
 }
+
+int main()
+{
+  // Setting the initial head pointer to point to NULL as
+  // there are no items present in the Linked List yet
+  Node *head = NULL;
+
+  // Insering new items into the Linked List
+  append(&head, 11);
+  push(&head, 12);
+  printList(head);
+
+  // Inserting new item at a specific location in the Linked List
+  insertAt(head, 15);
+  printList(head);
+
+  return 0;
+}
