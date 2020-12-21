@@ -108,6 +108,21 @@ void deleteItem(Node **head_ref, int key)
   free(curr_node);
 }
 
+void deleteEntireList(Node **head_ref)
+{
+  Node *curr_node = *head_ref, *next_node;
+
+  while (curr_node != NULL)
+  {
+    next_node = curr_node->next;
+    free(curr_node);
+    curr_node = next_node;
+  }
+
+  // Reset the 'head_ref' pointer to NULL
+  *head_ref = NULL;
+}
+
 int main()
 {
   // Setting the initial head pointer to point to NULL as
@@ -129,6 +144,10 @@ int main()
   // Deleting a single item from the Linked List
   // deleteItem(&head, 15);
   deleteItem(&head, 12);
+  printList(head);
+
+  // Delete the entire Linked List
+  deleteEntireList(&head);
   printList(head);
 
   return 0;
