@@ -136,7 +136,7 @@ int getLength(Node *head_ref)
   return count;
 }
 
-int main()
+int testing()
 {
   // Setting the initial head pointer to point to NULL as
   // there are no items present in the Linked List yet
