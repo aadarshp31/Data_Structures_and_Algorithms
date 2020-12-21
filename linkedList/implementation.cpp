@@ -123,6 +123,19 @@ void deleteEntireList(Node **head_ref)
   *head_ref = NULL;
 }
 
+int getLength(Node **head_ref)
+{
+  int count = 0;
+  Node *curr_node = *head_ref;
+
+  while (curr_node != NULL)
+  {
+    curr_node = curr_node->next;
+    count++;
+  }
+  return count;
+}
+
 int main()
 {
   // Setting the initial head pointer to point to NULL as
@@ -136,19 +149,23 @@ int main()
   append(&head, 14);
   push(&head, 12);
   printList(head);
+  cout << "The length of the Linked List is: " << getLength(&head) << endl;
 
   // Inserting new item at a specific location in the Linked List
   insertAt(head, 15);
   printList(head);
+  cout << "The length of the Linked List is: " << getLength(&head) << endl;
 
   // Deleting a single item from the Linked List
   // deleteItem(&head, 15);
   deleteItem(&head, 12);
   printList(head);
+  cout << "The length of the Linked List is: " << getLength(&head) << endl;
 
   // Delete the entire Linked List
   deleteEntireList(&head);
   printList(head);
+  cout << "The length of the Linked List is: " << getLength(&head) << endl;
 
   return 0;
 }
