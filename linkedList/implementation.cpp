@@ -69,6 +69,45 @@ void printList(Node *node)
   cout << "\n";
 }
 
+// Deletes an element from the Linked List with a specific key
+void deleteItem(Node **head_ref, int key)
+{
+  Node *curr_node = *head_ref, *prev;
+
+  if (*head_ref == NULL)
+  {
+    cout << "This is an empty linked list" << endl;
+    return;
+  }
+
+  // Case 1: Deleting the first element of the Linked List
+  if (curr_node != NULL && curr_node->data == key)
+  {
+    *head_ref = curr_node->next;
+    free(curr_node);
+    return;
+  }
+
+  // Case 2: Deleting the node anywhere other than the one at the head_ref
+  while (curr_node != NULL && curr_node->data != key)
+  {
+    prev = curr_node;
+    curr_node = curr_node->next;
+  }
+
+  // Case 3: If the element is not present in the Linked List
+  if (curr_node == NULL)
+  {
+    cout << "There is no element in the Linked List with the key: " << key << endl;
+    return;
+  }
+
+  // Set the 'next' of the prev to that of curr_node;
+  prev->next = curr_node->next;
+  // Freeing up the Node referenced by the 'curr_node' pointer
+  free(curr_node);
+}
+
 int main()
 {
   // Setting the initial head pointer to point to NULL as
@@ -77,11 +116,19 @@ int main()
 
   // Insering new items into the Linked List
   append(&head, 11);
+  append(&head, 12);
+  append(&head, 13);
+  append(&head, 14);
   push(&head, 12);
   printList(head);
 
   // Inserting new item at a specific location in the Linked List
   insertAt(head, 15);
+  printList(head);
+
+  // Deleting a single item from the Linked List
+  // deleteItem(&head, 15);
+  deleteItem(&head, 12);
   printList(head);
 
   return 0;
