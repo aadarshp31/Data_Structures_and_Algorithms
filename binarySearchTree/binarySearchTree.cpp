@@ -9,6 +9,7 @@ public:
 
   Node *newNode(int data);
   Node *insertNode(Node *node, int data);
+  Node *in_order_successor(Node *node);
 };
 
 Node *Node::newNode(int data)
@@ -33,4 +34,15 @@ Node *Node::insertNode(Node *node, int data)
   {
     node->right = insertNode(node->right, data);
   }
+}
+
+// Assuming that the argument '*node' being passed is the right to the root node
+Node *in_order_successor(Node *node)
+{
+  Node *newVal = node;
+  while (newVal->left != NULL)
+  {
+    newVal = newVal->left;
+  }
+  return newVal;
 }
