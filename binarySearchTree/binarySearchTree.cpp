@@ -11,6 +11,9 @@ public:
   Node *insertNode(Node *node, int data);
   Node *in_order_successor(Node *node);
   Node *deleteNode(Node *root, int data);
+  void inOrderTraversal(Node *root);
+  void preOrderTraversal(Node *root);
+  void postOrderTraversal(Node *root);
 };
 
 Node *Node::newNode(int data)
@@ -88,4 +91,28 @@ Node *Node::deleteNode(Node *root, int data)
     root->right = deleteNode(root->right, successor->key);
   }
   return root;
+}
+
+void Node::inOrderTraversal(Node *root)
+{
+  if (root != NULL)
+  {
+    inOrderTraversal(root->left);
+    cout << root->key;
+    inOrderTraversal(root->right);
+  }
+}
+
+void Node::preOrderTraversal(Node *root)
+{
+  cout << root->key;
+  preOrderTraversal(root->left);
+  preOrderTraversal(root->right);
+}
+
+void Node::postOrderTraversal(Node *root)
+{
+  postOrderTraversal(root->left);
+  postOrderTraversal(root->right);
+  cout << root->key;
 }
