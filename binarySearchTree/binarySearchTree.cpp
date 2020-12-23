@@ -10,6 +10,7 @@ public:
   Node *newNode(int data);
   Node *insertNode(Node *node, int data);
   Node *in_order_successor(Node *node);
+  Node *deleteNode(Node *root, int data);
 };
 
 Node *Node::newNode(int data)
@@ -36,8 +37,8 @@ Node *Node::insertNode(Node *node, int data)
   }
 }
 
-// Assuming that the argument '*node' being passed is the right to the root node
-Node *in_order_successor(Node *node)
+// The argument '*node' being passed is the 'right' to the root node
+Node *Node::in_order_successor(Node *node)
 {
   Node *newVal = node;
   while (newVal->left != NULL)
@@ -45,4 +46,46 @@ Node *in_order_successor(Node *node)
     newVal = newVal->left;
   }
   return newVal;
+}
+
+Node *Node::deleteNode(Node *root, int data)
+{
+  if (root == NULL)
+  {
+    cout << "This BST is empty!" << endl;
+    return root;
+  }
+
+  if (data < root->key)
+  {
+    root->left = deleteNode(root->left, data);
+  }
+  else if (data > root->key)
+  {
+    root->right = deleteNode(root->right, data);
+  }
+  else
+  {
+    // One Child Node
+    if (root->left == NULL)
+    {
+      Node *temp = root->right;
+      free(root);
+      return temp;
+    }
+    else if (root->right == NULL)
+    {
+      Node *temp = root->left;
+      free(root);
+      return temp;
+    }
+
+    // Two Child Node
+
+    // Choosing In Order Successor
+    Node *successor = in_order_successor(root->right);
+    root->key = successor->key;
+    root->right = deleteNode(root->right, successor->key);
+  }
+  return root;
 }
