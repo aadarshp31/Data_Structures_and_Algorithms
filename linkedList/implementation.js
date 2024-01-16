@@ -1,81 +1,3 @@
-
-// class Node {
-//   data = null;
-//   next = null;
-
-//   constructor(data){
-//     if(data === undefined){
-//       return;
-//     }
-
-//     this.data = data;
-//     this.next = null;
-//   }
-
-//   // get next(){
-//   //   this.next;
-//   // }
-
-//   // set next(node){
-//   //   this.next = node;
-//   // }
-// }
-
-// class LinkedList{
-//   root = null;
-
-//   constructor(rootData){
-//     if(rootData === undefined){
-//       return;
-//     }
-//     this.root = new Node(rootData);
-//   }
-
-//   print(){
-//     let curr = this.root;
-//     const result = [];
-
-//     while(curr.next !== null){
-//       result.push(curr.data);
-//       curr = curr.next;
-//     }
-
-//     result.push(curr.data);
-//     console.log(...result);
-//   }
-
-//   append(data){
-//     const newNode = new Node(data);
-
-//     if(this.root === null){
-//       this.root = newNode;
-//       return;
-//     }
-    
-//     let curr = this.root;
-
-//     while(curr.next !== null){
-//       curr = curr.next;
-//     }
-
-//     curr.next = newNode;
-//   }
-
-//   push(data){
-//     const newNode = new Node(data);
-
-//     if(this.root === null){
-//       this.root = newNode;
-//       return;
-//     }
-
-//     const oldNext = this.root.next;
-//     newNode.next = oldNext;
-//     this.root.next = newNode;
-//   }
-
-// }
-
 class Node {
   constructor(data){
     this.data = data;
@@ -122,9 +44,8 @@ class LinkedList{
       return;
     }
 
-    const oldNext = this.root.next;
-    newNode.next = oldNext;
-    this.root.next = newNode;
+    newNode.next = this.root;
+    this.root = newNode; 
   }
 
   reverse(){
@@ -184,6 +105,47 @@ class LinkedList{
     return result;
   }
 
+  insertAt(position, data){
+
+    if(position < 1 || position > this.length + 1){
+      throw new Error('Position must be between 1 and list\'s length + 1');
+    }
+
+    if(position === 1){
+      this.push(data);
+      return;
+    }
+
+    if(position === this.length + 1){
+      this.append(data);
+      return;
+    }
+
+
+    let curr = this.root;
+    let pos = 1;
+    let prev = null;
+
+    while(curr.next !== null){
+      if(pos === position){
+        const newNode = new Node(data);
+        newNode.next = prev.next;
+        prev.next = newNode;
+        return;
+      }
+
+      pos++;
+      prev = curr;
+      curr = curr.next;
+    }
+
+    if(pos === position){
+      const newNode = new Node(data);
+      newNode.next = prev.next;
+      prev.next = newNode;
+    }
+  }
+
 }
 
 (() => {
@@ -199,12 +161,14 @@ class LinkedList{
 
   ll.print();
 
-  ll.push(0);
+  // ll.push(0);
   ll.append(10);
 
   ll.print();
+  
+  // ll.reverse();
 
-  ll.reverse();
+  ll.insertAt(5, 100);
   
   ll.print();
   console.log({length: ll.length})
