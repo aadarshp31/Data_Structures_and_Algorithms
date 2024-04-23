@@ -1,5 +1,7 @@
 import readline from "node:readline/promises";
 import Node from "./Node.js";
+import Queue from "../../../queue/Queue.js";
+
 
 /**
  * Implementation of Binary Tree data structure
@@ -105,6 +107,40 @@ export default class BinaryTree {
     this.postOrderTraversal(rootNode.left);
     this.postOrderTraversal(rootNode.right);
     BinaryTree.#prompt.write(`${rootNode.data} `);
+  }
+
+
+  /**
+   * Level order / Breadth first traversal of binary tree
+   * @param {Node | null} rootNode 
+   */
+  levelOrderTraversal(rootNode = this.root) {
+    if (rootNode === null) {
+      return null;
+    }
+
+    const queue = new Queue();
+    queue.enque(rootNode);
+    queue.enque('null');
+
+    while (!queue.empty()) {
+      /**
+       * @type {Node} 
+       */
+      const temp = queue.dequeue();
+
+      if (temp === 'null') {
+        console.log();
+
+        if (!queue.empty()) {
+          queue.enque('null');
+        }
+      } else {
+        BinaryTree.#prompt.write(`${temp.data} `);
+        queue.enque(temp.left);
+        queue.enque(temp.right);
+      }
+    }
   }
 
 }
