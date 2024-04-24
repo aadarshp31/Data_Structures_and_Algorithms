@@ -143,4 +143,25 @@ export default class BinaryTree {
     }
   }
 
+
+  /**
+   * Gets the max height of the binary tree
+   * @param {Node | null} root
+   */
+  maxHeight(root = this.root) {
+    // max height is zero for root element null
+    if (root === null) {
+      return 0;
+    }
+
+    // max height is zero for single element in the tree
+    if (root.left === null && root.right === null) {
+      return 0;
+    }
+
+    const leftMax = this.maxHeight(root.left);
+    const rightMax = this.maxHeight(root.right);
+    return Math.max(leftMax, rightMax) + 1;
+  }
+
 }
